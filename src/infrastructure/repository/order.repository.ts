@@ -26,7 +26,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
   }
 
   async find(id: string): Promise<Order> {
-    return await OrderModel.findOne({ where: { id } }).then((order) => {
+    return await OrderModel.findOne({ where: { id }, include: [{ model: OrderItemModel }] }).then((order) => {
       return new Order(
         order.id,
         order.customer_id,
@@ -42,17 +42,26 @@ export default class OrderRepository implements OrderRepositoryInterface {
   }
 
   async update(item: Order): Promise<void> {
+    await OrderItemModel.destroy({ where: { order_id: item.id } });
+
+    await OrderItemModel.bulkCreate(item.items.map((i) => {
+      return {
+        id: i.id,
+        name: i.name,
+        price: i.price,
+        quantity: i.quantity,
+        product_id: i.productId,
+        order_id: item.id,
+      };
+    }));
+
     await OrderModel.update({
       id: item.id,
       customer_id: item.customerId,
       total: item.total(),
       items: item.items.map((item) => {
         return {
-          id: item.id,
-          name: item.name,
-          price: item.price,
-          quantity: item.quantity,
-          product_id: item.productId,
+
         };
       }),
     }, {
