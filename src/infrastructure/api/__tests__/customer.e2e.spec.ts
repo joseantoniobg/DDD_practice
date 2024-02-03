@@ -85,5 +85,19 @@ describe("E2E test for customer", () => {
         expect.objectContaining(customer2),
       ])
     );
+
+    const xmlListCustomers = await request(app).get('/customer').set('Accept', 'application/xml').send();
+
+    expect(xmlListCustomers.status).toBe(200);
+    expect(xmlListCustomers.text).toContain('<?xml version="1.0" encoding="UTF-8"?>');
+    expect(xmlListCustomers.text).toContain('<customers>');
+    expect(xmlListCustomers.text).toContain('<customer>');
+    expect(xmlListCustomers.text).toContain('<id>');
+    expect(xmlListCustomers.text).toContain('<name>');
+    expect(xmlListCustomers.text).toContain('<address>');
+    expect(xmlListCustomers.text).toContain('<street>');
+    expect(xmlListCustomers.text).toContain('<number>');
+    expect(xmlListCustomers.text).toContain('<city>');
+    expect(xmlListCustomers.text).toContain('<zip>');
   });
 });
