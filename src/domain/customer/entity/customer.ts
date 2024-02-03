@@ -1,11 +1,12 @@
-import Entity from "../@shared/entity/entity.abstract";
-import NotificationError from "../@shared/notification/notification.error";
-import EventDispatcher from "../event/@shared/event-dispatcher";
-import CustomerAddressChangedEvent from "../event/customer/customer-address-changed.event";
-import CustomerCreatedEvent from "../event/customer/customer-created.event";
-import CustomerAddressChangedHandler from "../event/customer/handler/customer-address-changed.handle";
-import FirstCustomerCreatedHandler from "../event/customer/handler/first-customer-created.handler";
-import SecondCustomerCreatedHandler from "../event/customer/handler/second-customer-created.handler";
+import Entity from "../../@shared/entity/entity.abstract";
+import NotificationError from "../../@shared/notification/notification.error";
+import EventDispatcher from "../../@shared/event/event-dispatcher";
+import CustomerAddressChangedEvent from "../event/customer-address-changed.event";
+import CustomerCreatedEvent from "../event/customer-created.event";
+import CustomerAddressChangedHandler from "../event/customer-address-changed.handle";
+import FirstCustomerCreatedHandler from "../event/handler/first-customer-created.handler";
+import SecondCustomerCreatedHandler from "../event/handler/second-customer-created.handler";
+import CustomerValidatorFactory from "../factory/customer.validator.factory";
 import Address from "./value-object/address";
 
 export default class Customer extends Entity {
@@ -50,18 +51,7 @@ export default class Customer extends Entity {
   }
 
   validate() {
-    if (this.id.length === 0) {
-      this.notification.addError({
-        message: "Id is required",
-        context: "customer"
-      });
-    }
-    if (this._name.length === 0) {
-      this.notification.addError({
-        message: "Name is required",
-        context: "customer"
-      });
-    }
+    CustomerValidatorFactory.create().validate(this);
   }
 
   changeName(name: string) {

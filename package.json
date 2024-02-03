@@ -24,6 +24,7 @@
     "sequelize-typescript": "^2.1.6",
     "sqlite3": "^5.1.7-rc.0",
     "ts-node": "^10.9.2",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "yup": "^1.3.3"
   }
 }

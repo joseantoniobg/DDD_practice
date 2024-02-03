@@ -1,9 +1,7 @@
-import { v4 as uuid } from "uuid";
-import CustomerRepositoryInterface from "../../../domain/repository/customer-repository.interface";
+import CustomerRepositoryInterface from "../../../domain/customer/repository/customer-repository.interface";
 import { InputCreateCustomerDto, OutputCreateCustomerDto } from "./create.customer.dto";
-import Customer from "../../../domain/entity/customer";
-import CustomerFactory from "../../../domain/factory/customer.factory";
-import Address from "../../../domain/entity/value-object/address";
+import CustomerFactory from "../../../domain/customer/factory/customer.factory";
+import Address from "../../../domain/customer/entity/value-object/address";
 
 export default class CreateCustomerUseCase {
   private customerRepository: CustomerRepositoryInterface;

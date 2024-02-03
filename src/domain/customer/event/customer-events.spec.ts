@@ -1,6 +1,6 @@
-import Customer from "../../entity/customer";
-import Address from "../../entity/value-object/address";
-import CustomerAddressChangedHandler from "./handler/customer-address-changed.handle";
+import Customer from "../entity/customer";
+import Address from "../entity/value-object/address";
+import CustomerAddressChangedHandler from "./customer-address-changed.handle";
 import FirstCustomerCreatedHandler from "./handler/first-customer-created.handler";
 import SecondCustomerCreatedHandler from "./handler/second-customer-created.handler";
 
